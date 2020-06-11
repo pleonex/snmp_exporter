@@ -117,7 +117,11 @@ func main() {
 	parseOutput = strings.TrimSpace(parseOutput)
 	parseErrors := len(parseOutput) != 0
 	if parseErrors {
-		level.Warn(logger).Log("msg", "NetSNMP reported parse error(s)", "errors", len(strings.Split(parseOutput, "\n")))
+		outputLines := strings.Split(parseOutput, "\n")
+		level.Warn(logger).Log("msg", "NetSNMP reported parse error(s)", "errors", len(outputLines))
+		for i, msg := range outputLines {
+			level.Warn(logger).Log("line", i, "msg", msg)
+		}
 	}
 
 	nodes := getMIBTree()

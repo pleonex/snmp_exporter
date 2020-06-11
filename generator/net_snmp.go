@@ -168,7 +168,8 @@ func initSNMP(logger log.Logger) (string, error) {
 	}()
 
 	// Do the initialization.
-	C.netsnmp_init_mib()
+	snmpName := C.CString("prometheus-exporter")
+	C.init_snmp(snmpName)
 
 	// Restore stderr to normal.
 	w.Close()
