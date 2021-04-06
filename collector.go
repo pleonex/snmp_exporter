@@ -28,7 +28,7 @@ import (
 	"github.com/soniah/gosnmp"
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/snmp_exporter/config"
+	"github.com/pleonex/snmp_exporter/config"
 )
 
 var (

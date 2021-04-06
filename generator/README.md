@@ -1,7 +1,7 @@
-
 # SNMP Exporter Config Generator
 
-This config generator uses NetSNMP to parse MIBs, and generates configs for the snmp_exporter using them.
+This config generator uses NetSNMP to parse MIBs, and generates configs for the
+snmp_exporter using them.
 
 ## Building
 
@@ -13,8 +13,8 @@ sudo apt-get install unzip build-essential libsnmp-dev p7zip-full # Debian-based
 # Redhat-based distributions.
 sudo yum install gcc gcc-g++ make net-snmp net-snmp-utils net-snmp-libs net-snmp-devel # RHEL-based distros
 
-go get github.com/prometheus/snmp_exporter/generator
-cd ${GOPATH-$HOME/go}/src/github.com/prometheus/snmp_exporter/generator
+go get github.com/pleonex/snmp_exporter/generator
+cd ${GOPATH-$HOME/go}/src/github.com/pleonex/snmp_exporter/generator
 go build
 make mibs
 ```
@@ -28,15 +28,20 @@ export MIBDIRS=mibs
 
 The generator reads in from `generator.yml` and writes to `snmp.yml`.
 
-Additional command are available for debugging, use the `help` command to see them.
+Additional command are available for debugging, use the `help` command to see
+them.
 
 ## Docker Users
 
-If you would like to run the generator in docker to generate your `snmp.yml` config run the following commands.
+If you would like to run the generator in docker to generate your `snmp.yml`
+config run the following commands.
 
-The Docker image expects a directory containing the `generator.yml` and a directory called `mibs` that contains all MIBs you wish to use.
+The Docker image expects a directory containing the `generator.yml` and a
+directory called `mibs` that contains all MIBs you wish to use.
 
-This example will generate the example `snmp.yml` which is included in the top level of the snmp_exporter repo:
+This example will generate the example `snmp.yml` which is included in the top
+level of the snmp_exporter repo:
+
 ```sh
 make mibs
 docker build -t snmp-generator .
@@ -132,41 +137,50 @@ modules:
 
 ### EnumAsInfo and EnumAsStateSet
 
-SNMP contains the concept of integer indexed enumerations (enums). There are two ways
-to represent these strings in Prometheus. They can be "info" metrics, or they can be
-"state sets". SNMP does not specify which should be used, and it's up to the use case
-of the data. Some users may also prefer the raw integer value, rather than the string.
+SNMP contains the concept of integer indexed enumerations (enums). There are two
+ways to represent these strings in Prometheus. They can be "info" metrics, or
+they can be "state sets". SNMP does not specify which should be used, and it's
+up to the use case of the data. Some users may also prefer the raw integer
+value, rather than the string.
 
-In order to set enum integer to string mapping, you must use one of the two overrides.
+In order to set enum integer to string mapping, you must use one of the two
+overrides.
 
-`EnumAsInfo` should be used for properties that provide inventory-like data. For example
-a device type, the name of a colour etc. It is important that this value is constant.
+`EnumAsInfo` should be used for properties that provide inventory-like data. For
+example a device type, the name of a colour etc. It is important that this value
+is constant.
 
-`EnumAsStateSet` should be used for things that represent state or that you might want
-to alert on. For example the link state, is it up or down, is it in an error state,
-whether a panel is open or closed etc. Please be careful to not use this for high
-cardinality values as it will generate 1 time series per possible value.
+`EnumAsStateSet` should be used for things that represent state or that you
+might want to alert on. For example the link state, is it up or down, is it in
+an error state, whether a panel is open or closed etc. Please be careful to not
+use this for high cardinality values as it will generate 1 time series per
+possible value.
 
 ## Where to get MIBs
 
 Some of these are quite sluggish, so use wget to download.
 
-Put the extracted mibs in a location NetSNMP can read them from. `$HOME/.snmp/mibs` is one option.
+Put the extracted mibs in a location NetSNMP can read them from.
+`$HOME/.snmp/mibs` is one option.
 
-* Cisco: ftp://ftp.cisco.com/pub/mibs/v2/v2.tar.gz
-* APC: https://download.schneider-electric.com/files?p_File_Name=powernet432.mib
-* Servertech: ftp://ftp.servertech.com/Pub/SNMP/sentry3/Sentry3.mib
-* Palo Alto PanOS 7.0 enterprise MIBs: https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/zip/technical-documentation/snmp-mib-modules/PAN-MIB-MODULES-7.0.zip
-* Arista Networks: https://www.arista.com/assets/data/docs/MIBS/ARISTA-ENTITY-SENSOR-MIB.txt
-                   https://www.arista.com/assets/data/docs/MIBS/ARISTA-SW-IP-FORWARDING-MIB.txt
-                   https://www.arista.com/assets/data/docs/MIBS/ARISTA-SMI-MIB.txt
-* Synology: https://global.download.synology.com/download/Document/Software/DeveloperGuide/Firmware/DSM/All/enu/Synology_MIB_File.zip
-* MikroTik: http://download2.mikrotik.com/Mikrotik.mib
-* UCD-SNMP-MIB (Net-SNMP): http://www.net-snmp.org/docs/mibs/UCD-SNMP-MIB.txt
-* Ubiquiti Networks: http://dl.ubnt-ut.com/snmp/UBNT-MIB
-                     http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB
-                     https://dl.ubnt.com/firmwares/airos-ubnt-mib/ubnt-mib.zip
+- Cisco: ftp://ftp.cisco.com/pub/mibs/v2/v2.tar.gz
+- APC: https://download.schneider-electric.com/files?p_File_Name=powernet432.mib
+- Servertech: ftp://ftp.servertech.com/Pub/SNMP/sentry3/Sentry3.mib
+- Palo Alto PanOS 7.0 enterprise MIBs:
+  https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/zip/technical-documentation/snmp-mib-modules/PAN-MIB-MODULES-7.0.zip
+- Arista Networks:
+  https://www.arista.com/assets/data/docs/MIBS/ARISTA-ENTITY-SENSOR-MIB.txt
+  https://www.arista.com/assets/data/docs/MIBS/ARISTA-SW-IP-FORWARDING-MIB.txt
+  https://www.arista.com/assets/data/docs/MIBS/ARISTA-SMI-MIB.txt
+- Synology:
+  https://global.download.synology.com/download/Document/Software/DeveloperGuide/Firmware/DSM/All/enu/Synology_MIB_File.zip
+- MikroTik: http://download2.mikrotik.com/Mikrotik.mib
+- UCD-SNMP-MIB (Net-SNMP): http://www.net-snmp.org/docs/mibs/UCD-SNMP-MIB.txt
+- Ubiquiti Networks: http://dl.ubnt-ut.com/snmp/UBNT-MIB
+  http://dl.ubnt-ut.com/snmp/UBNT-UniFi-MIB
+  https://dl.ubnt.com/firmwares/airos-ubnt-mib/ubnt-mib.zip
 
-https://github.com/librenms/librenms/tree/master/mibs can also be a good source of MIBs.
+https://github.com/librenms/librenms/tree/master/mibs can also be a good source
+of MIBs.
 
 http://oidref.com is recommended for browsing MIBs.

@@ -1,7 +1,7 @@
 # Prometheus SNMP Exporter
 
-This is an exporter that exposes information gathered from SNMP
-for use by the Prometheus monitoring system.
+This is an exporter that exposes information gathered from SNMP for use by the
+Prometheus monitoring system.
 
 There are two components. An exporter that does the actual scraping, and a
 [generator](generator/) (which depends on NetSNMP) that creates the
@@ -9,8 +9,8 @@ configuration for use by the exporter.
 
 ## Installation
 
-Binaries can be downloaded from the [Github
-releases](https://github.com/prometheus/snmp_exporter/releases) page.
+Binaries can be downloaded from the
+[Github releases](https://github.com/pleonex/snmp_exporter/releases) page.
 
 ## Usage
 
@@ -28,11 +28,11 @@ The snmp exporter reads from a `snmp.yml` config file by default. This file is
 not intended to be written by hand, rather use the [generator](generator/) to
 generate it for you.
 
-The default `snmp.yml` covers a variety of common hardware for which
-MIBs are available to the public, walking them using SNMP v2 GETBULK.
+The default `snmp.yml` covers a variety of common hardware for which MIBs are
+available to the public, walking them using SNMP v2 GETBULK.
 
-You'll need to use the generator in all but the simplest of setups. It is
-needed to customize which objects are walked, use non-public MIBs or specify
+You'll need to use the generator in all but the simplest of setups. It is needed
+to customize which objects are walked, use non-public MIBs or specify
 authentication parameters.
 
 ## Prometheus Configuration
@@ -41,6 +41,7 @@ The snmp exporter needs to be passed the address as a parameter, this can be
 done with relabelling.
 
 Example config:
+
 ```YAML
 scrape_configs:
   - job_name: 'snmp'
@@ -65,7 +66,8 @@ getting the metrics from is not possible.
 
 ## Large counter value handling
 
-In order to provide accurate counters for large Counter64 values, the exporter will automatically
-wrap the value every 2^53 to avoid 64-bit float rounding.
+In order to provide accurate counters for large Counter64 values, the exporter
+will automatically wrap the value every 2^53 to avoid 64-bit float rounding.
 
-To disable this feature, use the command line flag `--no-snmp.wrap-large-counters`.
+To disable this feature, use the command line flag
+`--no-snmp.wrap-large-counters`.

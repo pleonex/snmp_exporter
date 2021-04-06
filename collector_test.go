@@ -24,7 +24,7 @@ import (
 	"github.com/soniah/gosnmp"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/prometheus/snmp_exporter/config"
+	"github.com/pleonex/snmp_exporter/config"
 )
 
 func TestPduToSample(t *testing.T) {

@@ -27,7 +27,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/yaml.v2"
 
-	"github.com/prometheus/snmp_exporter/config"
+	"github.com/pleonex/snmp_exporter/config"
 )
 
 // Generate a snmp_exporter config and write it out.
